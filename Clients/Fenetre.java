@@ -1,17 +1,46 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+public class Fenetre {
 
-public class MainAppli {
+    private JTextField nomChamp;
+    private JTextField ageChamp;
+    private JTextField adresseChamp;
+
+    public Fenetre() {
+
+        JFrame frame = new JFrame("Formulaire de Validation");
 
 
-    public static void main(String[] args) {
-        new Fenetre();
-/*
-        	System.out.println("Démarrage de l'application...");
+        frame.setSize(500, 500);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel nomLabel = new JLabel("Nom");
+        nomChamp = new JTextField();
+        panel.add(nomLabel);
+        panel.add(nomChamp);
+
+        JLabel ageLabel = new JLabel("Age");
+        ageChamp = new JTextField();
+        panel.add(ageLabel);
+        panel.add(ageChamp);
+
+        JLabel adresseLabel = new JLabel("Adresse");
+        adresseChamp = new JTextField();
+        panel.add(adresseLabel);
+        panel.add(adresseChamp);
 
 try {
 
@@ -21,6 +50,15 @@ try {
 } catch (ClassNotFoundException e) {
 	System.out.println("Driver pas trouvé");
 }
+
+
+
+
+
+        JButton validationButton = new JButton("Validation");
+        validationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
 try {
 
@@ -37,21 +75,22 @@ try {
                         + "adresse VARCHAR(50))"; // Chaîne fermée ici correctement
                 statement.execute(createTableSQL);
             System.out.println("Table créée");
-        }catch (SQLException e) {
+        }catch (SQLException f) {
 	System.out.println("table pas réussi à créer ");
 	}
 
 
 
 try {
-String insertSQL = "INSERT INTO personnes (nom, age, adresse) VALUES "
-                 + "('Alice', 30, '123 Rue A'), "
-                 + "('Bob', 25, '456 Rue B')";
+String insertSQL = "INSERT INTO personnes (nom, age, adresse) VALUES ('" 
+    + nomChamp.getText() + "', " 
+    + ageChamp.getText() + ", '" 
+    + adresseChamp.getText() + "')";
 Statement statement = connection.createStatement(); 
-    int rowsAffected = statement.executeUpdate(insertSQL);
+statement.executeUpdate(insertSQL);
     System.out.println(" lignes insérées.");
-} catch (SQLException e) {
-    System.out.println("Erreur lors de l'insertion des données : " + e.getMessage());
+} catch (SQLException g) {
+    System.out.println("Erreur lors de l'insertion des données : " + g.getMessage());
 }
 
 
@@ -69,20 +108,23 @@ System.out.println("on essaie de chercher des données");
 	
         System.out.println("ID: " + id + ", Nom: " + nom + ", Age: " + age + ", Adresse: " + adresse);
     }
-} catch (SQLException e) {
-    System.out.println("Erreur lors de la sélection des données : " + e.getMessage());
+} catch (SQLException h) {
+    System.out.println("Erreur lors de la sélection des données : " + h.getMessage());
 }
 
 
 
 
-} catch (SQLException e) {
+} catch (SQLException j) {
 	System.out.println("Base pas bon");
 }
+            }
+        });
 
+        panel.add(validationButton);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
 
-*/
-
-}
-    
+   
 }
